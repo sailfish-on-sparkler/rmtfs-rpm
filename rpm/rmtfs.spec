@@ -20,9 +20,12 @@ make clean
 
 %install
 make DESTDIR=%{buildroot} prefix=/usr install
+mkdir -p %{buildroot}%{_unitdir}/multi-user.target.wants
+ln -s ../rmtfs.service %{buildroot}%{_unitdir}/multi-user.target.wants/rmtfs.service
 
 %files
 %defattr(-,root,root,-)
 %license LICENSE
 %{_bindir}/rmtfs
-%{_libdir}/systemd/system/*.service
+%{_unitdir}/rmtfs.service
+%{_unitdir}/multi-user.target.wants/rmtfs.service
